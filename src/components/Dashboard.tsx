@@ -1,5 +1,5 @@
 import React, {  useContext } from 'react'; 
-import { StoreContext, Group } from '../StoreContext';
+import { StoreContext, Group, Task } from '../StoreContext';
 import { TaskList } from './TaskList';
 import { appData } from '../data';
 
@@ -9,8 +9,11 @@ export const Dashboard = () => {
   const {tasks,comments} = allData  
   return (
     <div >
-  {allData.groups&&allData.groups.map((group:Group)=>(
-    <TaskList key={group.id} group={group} tasks={tasks} comments={comments}/>
-  ))}
+      {allData.groups && allData.groups.map((group: Group) => {
+        console.log(group) 
+        const tasksForGroup=tasks.filter((task:Task)=>task.group===group.id)
+        return (
+    <TaskList key={group.id} group={group} tasks={tasksForGroup} comments={comments}/>
+  )})}
 </div> )
 } 

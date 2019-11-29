@@ -1,41 +1,40 @@
-import React ,{useEffect, useState} from 'react'; 
-import './App.css';  
+import React, { useEffect, useState } from 'react';
+import './App.css';
 import { history } from './history';
-import   {StoreContextProvider, Data}   from './StoreContext';
+import { StoreContextProvider, Data } from './StoreContext';
 import { Router, Route } from 'react-router';
-import Main from './components/Main';
 import { appData } from './data';
 import { Dashboard } from './components/Dashboard';
 import { TaskDetail } from './components/TaskDetail';
+import { SignUp } from './components/SignUp';
+import { Login } from './components/Login';
 
-export const StoreContext = React.createContext(null)
+export const StoreContext = React.createContext(null);
 
 // const RouteGuard = Component =>({match})=>
 //     !store.getState().session.authenticated ?
 //         <Redirect to="/"/> :
 //         <Component match={match}/>;
 
+ 
 
-const App: React.FC = () => { 
-  const [data, setData] = useState<Data | undefined>(undefined)
-  
+const App: React.FC = () => {
+  const [data, setData] = useState<Data | undefined>(undefined);
+
   useEffect(() => {
-    setData(appData); 
+
+    setData(appData);
   }, []);
   return (
-    <StoreContextProvider  value={data}> 
-    <Router history={history}>
-        <Route exact path="/" component={Main} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        
-    <Route exact
-                       path="/task/:id"
-                       component={TaskDetail} />
+    <StoreContextProvider value={data}>
+      <Router history={history}>
+        <Route exact path='/' component={Login} />
+        <Route exact path='/dashboard' component={Dashboard} />
+        <Route exact path='/signup' component={SignUp} />
+        <Route exact path='/task/:id' component={TaskDetail} />
       </Router>
-    </StoreContextProvider >
+    </StoreContextProvider>
   );
+};
 
-}  
-
-export default  App;
-
+export default App;
